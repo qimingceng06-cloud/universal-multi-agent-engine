@@ -1,0 +1,8 @@
+name: "股票市場"
+era: "現代"
+description: "股票市場動態模擬，包含牛市行情、熊市崩盤與恐慌拋售等市場狀態。"
+systems:
+  - finance
+  - psychology
+  - macroeconomics
+start_time: "開盤前"

@@ -1,0 +1,7 @@
+name: "供應鏈中斷"
+era: "現代"
+description: "全球物流與港口資源模擬，包含原油價格波動與製造業庫存斷鏈危機。"
+systems:
+  - logistics
+  - manufacturing
+start_time: "港口罷工前夕"

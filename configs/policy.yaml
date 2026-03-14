@@ -1,0 +1,59 @@
+scenario_name: policy-shock-simulation
+steps: 6
+output_dir: outputs/run_policy
+budget: 1.4
+seed: 99
+world:
+  sentiment_index: -0.1
+  demand_index: 0.2
+  policy_signal: 0.1
+  macro_pressure: 0.4
+  volatility_index: 0.45
+  confidence_index: 0.15
+  liquidity_index: 0.2
+  stress_index: 0.5
+  memory_window: 6
+scheduler:
+  start_time: "2026-03-12T08:00:00"
+  step_minutes: 30
+  events:
+    - step: 0
+      pressure: 0.4
+      criticality: 0.6
+      policy_delta: 0.5
+    - step: 4
+      pressure: 0.9
+      criticality: 0.95
+      policy_delta: -0.3
+agents:
+  - agent_id: regulator
+    layer: Layer 1 Key Individual Agents
+    importance: 0.92
+    profile:
+      action_type: intervene
+      sentiment_bias: 0.2
+      policy_bias: 0.15
+  - agent_id: banks
+    layer: Layer 2 Templated Adaptive Agents
+    importance: 0.62
+    cohort_size: 25
+    profile:
+      action_type: tighten
+      sentiment_bias: -0.05
+      demand_bias: -0.1
+  - agent_id: workers
+    layer: Layer 3 Archetype Groups
+    importance: 0.26
+    cohort_size: 300
+    profile:
+      action_type: adapt_labor
+      sentiment_bias: -0.02
+      macro_bias: 0.08
+macro_population:
+  agent_id: national_population
+  layer: Layer 4 Macro Statistical Population
+  importance: 0.08
+  cohort_size: 20000
+  profile:
+    action_type: aggregate_response
+    macro_bias: 0.35

@@ -1,0 +1,8 @@
+name: "全球疫情"
+era: "近未來"
+description: "流行病傳播模型，包含潛伏期、傳播指數（R0）以及致死率變數。"
+systems:
+  - biology
+  - healthcare
+  - logistics
+start_time: "爆發首日"

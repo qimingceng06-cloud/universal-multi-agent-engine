@@ -1,0 +1,23 @@
+llm_agents:
+- description: Primary scenario observer.
+  goals: Objective Analysis
+  id: agent_alpha
+  importance: 0.9
+  name: Alpha Observer
+  personality: Analytical, Strategic
+  role: core_npc
+- description: Secondary actor representing public sentiment.
+  goals: Survive and Prosper
+  id: agent_beta
+  importance: 0.7
+  name: Beta Participant
+  personality: Reactive, Emotional
+  role: core_npc
+statistical_crowd:
+  demographics:
+    general_population: 500
+  model: simple
+template_agents:
+  archetypes:
+  - count: 20
+    type: generic_actor

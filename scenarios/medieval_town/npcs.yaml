@@ -1,0 +1,30 @@
+llm_agents:
+  - id: lord_chen
+    name: 陳領主
+    role: core_npc
+    importance: 0.9
+    personality: 精明、多疑、重視家族聲望
+    goals: 維持領地安全、擴大家族勢力
+    description: 風谷鎮的統治者。
+
+  - id: smith_wang
+    name: 王鐵匠
+    role: core_npc
+    importance: 0.7
+    personality: 固執、善良
+    goals: 維持鐵匠鋪生意
+    description: 鎮上唯一的鐵匠。
+
+template_agents:
+  archetypes:
+    - type: farmer
+      count: 20
+    - type: merchant
+      count: 5
+
+statistical_crowd:
+  demographics:
+    peasants: 200
+    townsfolk: 70
+    outsiders: 30
+  model: simple

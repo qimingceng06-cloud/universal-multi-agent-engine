@@ -1,0 +1,62 @@
+scenario_name: minimal-local-run
+steps: 4
+output_dir: outputs/run_local
+budget: 1.0
+seed: 7
+world:
+  sentiment_index: 0.0
+  demand_index: 0.0
+  policy_signal: 0.0
+  macro_pressure: 0.0
+  volatility_index: 0.1
+  confidence_index: 0.2
+  liquidity_index: 0.3
+  stress_index: 0.1
+  memory_window: 4
+scheduler:
+  start_time: "2026-03-12T09:00:00"
+  step_minutes: 15
+  events:
+    - step: 1
+      pressure: 0.3
+      criticality: 0.4
+    - step: 2
+      pressure: 0.6
+      criticality: 0.9
+      policy_delta: 0.2
+router:
+  key_individual: 0.8
+  templated_adaptive: 0.5
+  archetype_group: 0.25
+agents:
+  - agent_id: mayor
+    layer: Layer 1 Key Individual Agents
+    importance: 0.95
+    profile:
+      action_type: announce
+      sentiment_bias: 0.4
+      demand_bias: 0.2
+  - agent_id: merchants
+    layer: Layer 2 Templated Adaptive Agents
+    importance: 0.65
+    cohort_size: 12
+    profile:
+      action_type: reprice
+      sentiment_bias: 0.1
+      demand_bias: 0.4
+  - agent_id: commuters
+    layer: Layer 3 Archetype Groups
+    importance: 0.3
+    cohort_size: 80
+    profile:
+      action_type: adapt
+      sentiment_bias: 0.05
+      macro_bias: 0.1
+macro_population:
+  agent_id: city_background
+  layer: Layer 4 Macro Statistical Population
+  importance: 0.1
+  cohort_size: 5000
+  profile:
+    action_type: aggregate
+    macro_bias: 0.25

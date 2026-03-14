@@ -1,0 +1,76 @@
+scenario_name: supply-chain-fragility
+steps: 7
+output_dir: outputs/run_supply_chain
+budget: 1.6
+seed: 123
+world:
+  sentiment_index: 0.1
+  demand_index: 0.8
+  policy_signal: 0.0
+  macro_pressure: 0.35
+  volatility_index: 0.2
+  confidence_index: 0.5
+  liquidity_index: 0.4
+  stress_index: 0.3
+  market_temperature: 0.0
+  system_stability: 0.0
+  memory_window: 6
+scheduler:
+  start_time: "2026-03-13T08:00:00"
+  step_minutes: 20
+  events:
+    - step: 1
+      pressure: 0.55
+      criticality: 0.6
+      macro_delta: 0.1
+    - step: 3
+      pressure: 0.85
+      criticality: 0.95
+      policy_delta: 0.25
+      macro_delta: 0.2
+    - step: 5
+      pressure: 0.45
+      criticality: 0.5
+      policy_delta: -0.1
+router:
+  key_individual: 0.82
+  templated_adaptive: 0.52
+  archetype_group: 0.28
+agents:
+  - agent_id: logistics_ceo
+    layer: Layer 1 Key Individual Agents
+    importance: 0.96
+    profile:
+      action_type: reroute_capacity
+      sentiment_bias: 0.22
+      demand_bias: 0.18
+      confidence_bias: 0.12
+      policy_reflex: 0.08
+  - agent_id: wholesalers
+    layer: Layer 2 Templated Adaptive Agents
+    importance: 0.66
+    cohort_size: 30
+    profile:
+      action_type: reallocate_inventory
+      sentiment_bias: 0.06
+      demand_bias: 0.28
+      liquidity_bias: 0.08
+      volatility_bias: 0.04
+  - agent_id: consumers
+    layer: Layer 3 Archetype Groups
+    importance: 0.31
+    cohort_size: 500
+    profile:
+      action_type: substitute_products
+      sentiment_bias: -0.03
+      macro_bias: 0.07
+      resilience: 0.62
+macro_population:
+  agent_id: national_demand_base
+  layer: Layer 4 Macro Statistical Population
+  importance: 0.12
+  cohort_size: 50000
+  profile:
+    action_type: absorb_shock
+    macro_bias: 0.22
+    macro_reflex: 0.1

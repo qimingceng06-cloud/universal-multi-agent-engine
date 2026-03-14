@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "universal-multi-agent-sim"
+version = "0.1.0"
+description = "A minimal runnable framework for layered multi-agent simulation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Yao Lai" }
+]
+dependencies = [
+  "PyYAML>=6.0,<7.0"
+]
+
+[project.scripts]
+universal-multi-agent-sim = "universal_multi_agent_sim.engine:main"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0,<9.0"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

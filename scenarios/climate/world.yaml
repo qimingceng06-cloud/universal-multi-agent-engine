@@ -1,0 +1,8 @@
+name: "氣候變遷"
+era: "未來 50 年"
+description: "模擬碳排放、反聖嬰現象、政策干預對地區與全球氣候系統的長期影響。"
+systems:
+  - ecology
+  - government
+  - economics
+start_time: "2030 年"

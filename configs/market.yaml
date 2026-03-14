@@ -1,0 +1,57 @@
+scenario_name: market-simulation
+steps: 5
+output_dir: outputs/run_market
+budget: 1.2
+seed: 21
+world:
+  sentiment_index: 0.2
+  demand_index: 1.0
+  policy_signal: 0.0
+  macro_pressure: 0.3
+  volatility_index: 0.35
+  confidence_index: 0.5
+  liquidity_index: 0.45
+  stress_index: 0.25
+  memory_window: 5
+scheduler:
+  start_time: "2026-03-12T09:30:00"
+  step_minutes: 10
+  events:
+    - step: 1
+      pressure: 0.5
+      criticality: 0.5
+    - step: 3
+      pressure: 0.8
+      criticality: 0.7
+agents:
+  - agent_id: fund_manager
+    layer: Layer 1 Key Individual Agents
+    importance: 0.9
+    profile:
+      action_type: rotate
+      sentiment_bias: 0.3
+      demand_bias: 0.5
+  - agent_id: retailers
+    layer: Layer 2 Templated Adaptive Agents
+    importance: 0.6
+    cohort_size: 40
+    profile:
+      action_type: rebalance
+      sentiment_bias: 0.15
+      demand_bias: 0.25
+  - agent_id: households
+    layer: Layer 3 Archetype Groups
+    importance: 0.28
+    cohort_size: 200
+    profile:
+      action_type: shift_spending
+      sentiment_bias: 0.08
+      macro_bias: 0.05
+macro_population:
+  agent_id: passive_flows
+  layer: Layer 4 Macro Statistical Population
+  importance: 0.12
+  cohort_size: 10000
+  profile:
+    action_type: net_flow
+    macro_bias: 0.2

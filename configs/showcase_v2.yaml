@@ -1,0 +1,92 @@
+scenario_name: v0.2-showcase-supply-demand-policy
+steps: 8
+output_dir: outputs/run_showcase_v2
+budget: 1.8
+seed: 42
+world:
+  sentiment_index: 0.15
+  demand_index: 0.6
+  policy_signal: 0.05
+  macro_pressure: 0.2
+  volatility_index: 0.3
+  confidence_index: 0.45
+  liquidity_index: 0.5
+  stress_index: 0.2
+  memory_window: 6
+scheduler:
+  start_time: "2026-03-12T10:00:00"
+  step_minutes: 20
+  events:
+    - step: 1
+      pressure: 0.35
+      criticality: 0.45
+      macro_delta: 0.10
+    - step: 2
+      pressure: 0.85
+      criticality: 0.92
+      policy_delta: 0.25
+      macro_delta: 0.30
+    - step: 4
+      pressure: 0.55
+      criticality: 0.60
+      policy_delta: -0.10
+    - step: 6
+      pressure: 0.70
+      criticality: 0.88
+      macro_delta: 0.25
+agents:
+  - agent_id: central_bank_governor
+    layer: Layer 1 Key Individual Agents
+    importance: 0.97
+    profile:
+      action_type: signal_rate_path
+      sentiment_bias: 0.18
+      demand_bias: -0.05
+      policy_bias: 0.25
+      confidence_bias: 0.10
+  - agent_id: market_makers
+    layer: Layer 2 Templated Adaptive Agents
+    importance: 0.68
+    cohort_size: 18
+    profile:
+      action_type: widen_or_tighten_spreads
+      sentiment_bias: 0.10
+      demand_bias: 0.12
+      macro_bias: 0.10
+      liquidity_bias: 0.18
+  - agent_id: export_manufacturers
+    layer: Layer 2 Templated Adaptive Agents
+    importance: 0.58
+    cohort_size: 24
+    profile:
+      action_type: rebalance_inventory
+      sentiment_bias: 0.05
+      demand_bias: 0.22
+      macro_bias: 0.12
+  - agent_id: households
+    layer: Layer 3 Archetype Groups
+    importance: 0.30
+    cohort_size: 320
+    profile:
+      action_type: adjust_spending
+      sentiment_bias: 0.08
+      demand_bias: 0.12
+      macro_bias: 0.10
+  - agent_id: logistics_network
+    layer: Layer 3 Archetype Groups
+    importance: 0.24
+    cohort_size: 140
+    profile:
+      action_type: reroute_capacity
+      sentiment_bias: 0.02
+      demand_bias: 0.08
+      macro_bias: 0.16
+macro_population:
+  agent_id: background_economy
+  layer: Layer 4 Macro Statistical Population
+  importance: 0.12
+  cohort_size: 15000
+  profile:
+    action_type: absorb_and_diffuse
+    macro_bias: 0.30
+    policy_bias: 0.08

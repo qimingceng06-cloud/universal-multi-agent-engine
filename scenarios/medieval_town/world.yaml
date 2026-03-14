@@ -1,0 +1,9 @@
+name: "風谷鎮"
+era: "中世紀"
+description: "一個寧靜的山谷小鎮，最近有盜匪出沒的傳聞..."
+systems:
+  - economy
+  - politics
+  - military
+  - social
+start_time: "第 1 天 早晨"

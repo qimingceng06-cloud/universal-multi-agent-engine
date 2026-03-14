@@ -1,0 +1,8 @@
+name: "總統大選"
+era: "現代"
+description: "選舉選戰模擬，包括候選人攻防、媒體風向塑造以及群體選民的意見形成。"
+systems:
+  - politics
+  - media
+  - social
+start_time: "選前 30 天"
