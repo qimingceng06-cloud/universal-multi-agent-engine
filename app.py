@@ -166,12 +166,18 @@ with st.sidebar:
 
 # Run Engine if Active
 if st.session_state.sim_running and st.session_state.engine:
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    step_res = loop.run_until_complete(run_step())
-    report = st.session_state.engine.router.get_usage_report()
-    st.session_state.cost_data["total_estimated_cost"] = report.pop("total_estimated_cost", "$0.00")
-    st.session_state.cost_data["tokens"] = sum(v for k,v in report.items() if isinstance(v, int))
+    try:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        step_res = loop.run_until_complete(run_step())
+        report = st.session_state.engine.router.get_usage_report()
+        st.session_state.cost_data["total_estimated_cost"] = report.pop("total_estimated_cost", "$0.00")
+        st.session_state.cost_data["tokens"] = sum(v for k,v in report.items() if isinstance(v, int))
+    except Exception as e:
+        st.error(f"⚠️ Simulation Step Failed: {str(e)}")
+        st.session_state.sim_running = False
+        if "Authentication" in str(e) or "API Key" in str(e):
+            st.warning("Please check your GEMINI_API_KEY in the sidebar or .env file.")
 
 # Dynamic Fallback to Demo Data or Real Data
 engine_active = st.session_state.engine is not None
@@ -310,14 +316,11 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown(section_header("🗺️", "QUICK NAVIGATION"), unsafe_allow_html=True)
 nav_cols = st.columns(6)
 page_map = {
-    "Agents": "pages/2_Agent_Grid.py",
-    "World": "pages/3_World_Map.py",
-    "Economy": "pages/5_Economy.py",
-    "Memory": "pages/6_Memory.py",
-    "Network": "pages/8_Network.py",
-    "Replay": "pages/9_Replay.py",
+    "Agents": "pages/1_Agent_Roster.py",
+    "Analytics": "pages/2_Cost_Analytics.py",
+    "Replay": "pages/3_Replay_Analysis.py",
 }
-nav_icons = {"Agents": "👤", "World": "🌐", "Economy": "💰", "Memory": "🧠", "Network": "🔗", "Replay": "⏮"}
+nav_icons = {"Agents": "👤", "Analytics": "📊", "Replay": "⏮"}
 
 for idx, (name, path) in enumerate(page_map.items()):
     with nav_cols[idx]:
