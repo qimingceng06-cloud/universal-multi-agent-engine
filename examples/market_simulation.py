@@ -10,5 +10,5 @@ from universal_multi_agent_sim.engine import run_from_config
 
 
 if __name__ == "__main__":
-    summary = run_from_config(str(ROOT / "configs" / "world.yaml"))
+    summary = run_from_config(str(ROOT / "configs" / "market.yaml"))
     print(summary)
