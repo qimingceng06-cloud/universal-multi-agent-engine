@@ -53,6 +53,21 @@ class WorldEngine:
             thinking_level=gm_route.thinking_level
         )
         
+        if isinstance(world_update, str):
+            try:
+                import json
+                clean_w = world_update.replace("```json", "").replace("```", "").strip()
+                w_json = json.loads(clean_w)
+                self.world_state.update(w_json)
+            except Exception:
+                self.world_state["latest_raw_update"] = world_update
+        elif isinstance(world_update, dict):
+            self.world_state.update(world_update)
+            
+        import copy
+        step_result["world_state_snapshot"] = copy.deepcopy(self.world_state)
+        step_result["gm_update"] = world_update
+        
         llm_tasks = []
         for agent in self.agents["llm_agents"]:
             importance = getattr(agent, 'importance', 0.5)
