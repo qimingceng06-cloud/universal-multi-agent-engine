@@ -329,22 +329,19 @@ source .venv/bin/activate
 
 ```bash
 pip install -r requirements.txt
-pip install -e .[dev]
 ```
 
-### 4. Run tests
+### 4. Setup Environment Variables
 
 ```bash
-pytest
+cp .env.example .env
+# Open .env and add your GEMINI_API_KEY for full functionality
 ```
 
-### 5. Run example scenarios
+### 5. Launch the Universal Dashboard! 🔥
 
 ```bash
-python examples/minimal_simulation.py
-python examples/market_simulation.py
-PYTHONPATH=src python examples/policy_shock_simulation.py
-PYTHONPATH=src python -c "from universal_multi_agent_sim.engine import run_from_config; print(run_from_config('configs/showcase_v2.yaml'))"
+streamlit run app.py
 ```
 
 ---

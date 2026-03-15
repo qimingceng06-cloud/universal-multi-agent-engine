@@ -325,26 +325,23 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install dependencies
+### 3. Install dependencies (安裝套件庫)
 
 ```bash
 pip install -r requirements.txt
-pip install -e .[dev]
 ```
 
-### 4. Run tests
+### 4. Setup Environment Variables (設定金鑰)
 
 ```bash
-pytest
+cp .env.example .env
+# 請打開 .env 檔案，並填入您的 GEMINI_API_KEY 以啟用最高等級推演
 ```
 
-### 5. Run example scenarios
+### 5. Launch the Universal Dashboard! (啟動控制台) 🔥
 
 ```bash
-python examples/minimal_simulation.py
-python examples/market_simulation.py
-PYTHONPATH=src python examples/policy_shock_simulation.py
-PYTHONPATH=src python -c "from universal_multi_agent_sim.engine import run_from_config; print(run_from_config('configs/showcase_v2.yaml'))"
+streamlit run app.py
 ```
 
 ---
